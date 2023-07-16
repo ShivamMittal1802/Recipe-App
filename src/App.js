@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header/Header";
+import ReceipesList from "./components/ReceipiesList/ReceipiesList";
+import FavoriteRecepies from "./components/FavoriteReceipies/FavoriteRecepies";
+import RecepiInformation from "./components/RecipeInformation/RecipeInfomation";
 
 function App() {
+  const [recipeItemInfo, setRecipeItemInfo] = useState({});
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <>
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ReceipesList
+                recipeItemInfo={recipeItemInfo}
+                setRecipeItemInfo={setRecipeItemInfo}
+              />
+            }
+          />
+          <Route path="/FavoriteRecepies" element={<FavoriteRecepies />} />
+          <Route
+            path="/RecipeInformation"
+            element={<RecepiInformation recipeItemInfo={recipeItemInfo} />}
+          />
+        </Routes>
+      </>
+    </BrowserRouter>
   );
 }
 
